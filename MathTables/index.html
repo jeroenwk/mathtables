@@ -1558,6 +1558,9 @@ function renderHome(){
     el('span',{style:'color:#fff;font-size:1.2rem'},['+']),el('span',{},[t('addPlayer')])
   ]));
 
+  wrap.appendChild(el('div',{style:'text-align:center;font-size:0.65rem;color:var(--c-text-dim);padding:8px 0;opacity:0.5'},
+    ['bb05586 · dpr='+window.devicePixelRatio+' sw='+screen.width+' iw='+window.innerWidth]
+  ));
   document.getElementById('app').appendChild(wrap);
 }
 
