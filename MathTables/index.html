@@ -1493,6 +1493,10 @@ function showModal(msg,onConfirm,confirmClass='btn-danger'){
 function renderHome(){
   const users=Store.getUsers();
   const wrap=el('div',{class:'screen anim-fade-in'});
+  // DEBUG: remove after testing
+  wrap.appendChild(el('div',{style:'font-size:0.7rem;color:yellow;padding:4px;background:#333;word-break:break-all'},
+    [`dpr=${window.devicePixelRatio} sw=${screen.width} sh=${screen.height} iw=${window.innerWidth} ih=${window.innerHeight}`]
+  ));
 
   // Header row
   const header=el('div',{class:'screen-header'});
