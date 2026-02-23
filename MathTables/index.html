@@ -1634,7 +1634,6 @@ function renderSettings({userId}){
   header.appendChild(el('button',{class:'btn-back',onClick:()=>App.go('HOME')},['←']));
   header.appendChild(el('div',{style:'font-size:1.8rem'},[user.emoji]));
   header.appendChild(el('div',{style:'font-size:1rem;font-weight:700'},[user.name]));
-  header.appendChild(el('div',{class:'home-title'},['🧮 Math Tables']));
   wrap.appendChild(header);
 
   // ---- Difficulty ----
@@ -1888,12 +1887,9 @@ function renderStats({userId}){
   // Header
   const header=el('div',{class:'screen-header'});
   header.appendChild(el('button',{class:'btn-back',onClick:()=>App.go('HOME')},['←']));
-  header.appendChild(el('div',{class:'home-title'},['🧮 Math Tables']));
+  header.appendChild(el('div',{style:'font-size:1.8rem'},[user.emoji]));
+  header.appendChild(el('div',{style:'font-size:1rem;font-weight:700;flex:1'},[user.name]));
   wrap.appendChild(header);
-  wrap.appendChild(el('div',{style:'text-align:center;padding:8px 0 4px'},[
-    el('div',{style:'font-size:2.2rem'},[user.emoji]),
-    el('div',{style:'font-size:1rem;font-weight:700;margin-top:2px'},[user.name])
-  ]));
 
   // Highscores
   if(user.highscores.length>0){
