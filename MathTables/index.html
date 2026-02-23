@@ -661,9 +661,17 @@ const I18N = {
     off:'Sans limite de temps',easy:'Facile (10s)',hard:'Difficile (6s)',extreme:'Extrême (3s)',
     mode:'Mode',
     fixed_count:'20 questions',fixed_time:'⏱ 2min',extensive:'Tout',double_extensive:'Double',
+    difficultyDesc:'Plus le niveau est élevé, plus les points gagnés sont importants.',
+    fixedCountDesc:'20 questions tirées aléatoirement parmi les tables activées.',
+    fixedTimeDesc:'Questions en continu pendant 2 minutes. Réponds à un maximum !',
+    extensiveDesc:'Toutes les combinaisons uniques des tables activées, dans un ordre aléatoire.',
+    doubleDesc:'Comme Tout, mais chaque combinaison apparaît deux fois (ex : 3×7 et 7×3).',
     boostHard:'Renforcer les difficiles',
     boostHardDesc:'Tes 10 questions les plus dures apparaissent plus souvent',
     tables:'Tables',
+    tablesAllIncluded:'Toutes les tables de 1 à 10 sont incluses dans le défi',
+    tablesExcluded:'Les tables %s sont exclues du défi',
+    tableExcluded:'La table %s est exclue du défi',
     startGame:'Jouer !',
     score:'Score',
     question:'Question',
@@ -702,9 +710,17 @@ const I18N = {
     off:'No time limit',easy:'Easy (10s)',hard:'Hard (6s)',extreme:'Extreme (3s)',
     mode:'Mode',
     fixed_count:'20 questions',fixed_time:'⏱ 2min',extensive:'All',double_extensive:'Double',
+    difficultyDesc:'The harder the level, the more points you earn.',
+    fixedCountDesc:'20 randomly picked questions from the enabled tables.',
+    fixedTimeDesc:'Questions non-stop for 2 minutes. Answer as many as you can!',
+    extensiveDesc:'All unique combinations of the enabled tables, in random order.',
+    doubleDesc:'Like All, but each combination appears twice (e.g. 3×7 and 7×3).',
     boostHard:'Boost hard questions',
     boostHardDesc:'Your 10 hardest questions appear more often',
     tables:'Tables',
+    tablesAllIncluded:'All tables from 1 to 10 are included in the challenge',
+    tablesExcluded:'Tables %s are excluded from the challenge',
+    tableExcluded:'Table %s is excluded from the challenge',
     startGame:'Play !',
     score:'Score',
     question:'Question',
@@ -743,9 +759,17 @@ const I18N = {
     off:'Geen tijd limiet',easy:'Makkelijk (10s)',hard:'Moeilijk (6s)',extreme:'Extreem (3s)',
     mode:'Modus',
     fixed_count:'20 vragen',fixed_time:'⏱ 2min',extensive:'Alles',double_extensive:'Dubbel',
+    difficultyDesc:'Hoe moeilijker het niveau, hoe meer punten je verdient.',
+    fixedCountDesc:'20 willekeurig gekozen vragen uit de ingeschakelde tafels.',
+    fixedTimeDesc:'Vragen aan één stuk door gedurende 2 minuten. Beantwoord er zoveel mogelijk!',
+    extensiveDesc:'Alle unieke combinaties van de ingeschakelde tafels, in willekeurige volgorde.',
+    doubleDesc:'Zoals Alles, maar elke combinatie verschijnt twee keer (bijv. 3×7 en 7×3).',
     boostHard:'Moeilijke vragen versterken',
     boostHardDesc:'Je 10 moeilijkste vragen komen vaker voor',
     tables:'Tafels',
+    tablesAllIncluded:'Alle tafels van 1 tot 10 zijn inbegrepen in de uitdaging',
+    tablesExcluded:'Tafels %s zijn uitgesloten van de uitdaging',
+    tableExcluded:'Tafel %s is uitgesloten van de uitdaging',
     startGame:'Spelen !',
     score:'Score',
     question:'Vraag',
@@ -816,7 +840,7 @@ const Store = {
     const id=this.uid();
     this.data.users[id]={
       id,name,emoji,createdAt:Date.now(),
-      settings:{difficulty:'off',mode:'fixed_count',boostDifficult:false,disabledTables:[]},
+      settings:{difficulty:'easy',mode:'fixed_count',boostDifficult:false,disabledTables:[]},
       highscores:[]
     };
     this.data.answers[id]={};
@@ -1612,10 +1636,12 @@ function renderSettings({userId}){
   }
   refreshDiff();
   wrap.appendChild(diffGroup);
+  wrap.appendChild(el('div',{style:'font-size:0.78rem;color:var(--c-text-dim);margin-top:6px'},[t('difficultyDesc')]));
 
   // ---- Mode ----
   wrap.appendChild(el('div',{class:'section-label',style:'margin-top:12px'},[t('mode')]));
   const modeGroup=el('div',{class:'seg-group'});
+  const modeDesc=el('div',{style:'font-size:0.78rem;color:var(--c-text-dim);margin-top:6px;min-height:1.2em'});
   function refreshMode(){
     modeGroup.innerHTML='';
     GAME_MODES.forEach(mode=>{
@@ -1625,9 +1651,12 @@ function renderSettings({userId}){
       },[t(mode)]);
       modeGroup.appendChild(btn);
     });
+    const modeDescKey={fixed_count:'fixedCountDesc',fixed_time:'fixedTimeDesc',extensive:'extensiveDesc',double_extensive:'doubleDesc'};
+    modeDesc.textContent=t(modeDescKey[s.mode]||'');
   }
   refreshMode();
   wrap.appendChild(modeGroup);
+  wrap.appendChild(modeDesc);
 
   // ---- Boost difficult ----
   const boostToggle=el('button',{
@@ -1644,7 +1673,14 @@ function renderSettings({userId}){
   // ---- Tables ----
   wrap.appendChild(el('div',{class:'section-label',style:'margin-top:12px'},[t('tables')]));
   const tableGrid=el('div',{class:'table-grid'});
+  const tableDesc=el('div',{style:'font-size:0.78rem;color:var(--c-text-dim);margin-top:6px'});
   function refreshTables(){
+    const excluded=s.disabledTables.slice().sort((a,b)=>a-b);
+    tableDesc.textContent=excluded.length===0
+      ?t('tablesAllIncluded')
+      :excluded.length===1
+        ?t('tableExcluded').replace('%s',excluded[0])
+        :t('tablesExcluded').replace('%s',excluded.join(', '));
     tableGrid.innerHTML='';
     for(let i=1;i<=10;i++){
       const disabled=s.disabledTables.includes(i);
@@ -1661,6 +1697,7 @@ function renderSettings({userId}){
   }
   refreshTables();
   wrap.appendChild(tableGrid);
+  wrap.appendChild(tableDesc);
 
   // ---- Start ----
   wrap.appendChild(el('button',{

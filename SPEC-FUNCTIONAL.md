@@ -27,7 +27,14 @@ Before starting a game, each player configures:
 | Hard    | 6 s       | ×1.3        |
 | Extreme | 3 s       | ×1.7        |
 
-Harder difficulty levels apply a multiplier to every point scored.
+Harder difficulty levels apply a multiplier to every point scored. The settings screen displays this as a hint below the difficulty selector. New players default to **Easy**.
+
+### Game Mode descriptions
+Each mode shows a short description below the mode selector:
+- **20 questions** — 20 randomly picked questions from the enabled tables.
+- **2 minutes** — Questions non-stop for 2 minutes. Answer as many as you can.
+- **All** — All unique combinations of the enabled tables, in random order.
+- **Double** — Like All, but each combination appears twice (e.g. 3×7 and 7×3).
 
 ### Game Mode
 | Mode             | Description |
@@ -41,7 +48,10 @@ Harder difficulty levels apply a multiplier to every point scored.
 When enabled, the player's personal top-10 hardest questions (most errors, slowest responses) are added 3 extra times to the question pool, making them appear more frequently. This applies to the **20 questions** and **2 minutes** modes; the **All** and **Double** modes are not boosted (each question already appears a fixed number of times).
 
 ### Tables
-Each table (1 through 10) can be individually enabled or disabled. Disabled tables are excluded from all questions.
+Each table (1 through 10) can be individually enabled or disabled. Disabled tables are excluded from all questions. A dynamic description below the grid summarises the current selection:
+- All enabled → "All tables from 1 to 10 are included in the challenge"
+- One disabled → "Table X is excluded from the challenge"
+- Multiple disabled → "Tables X, Y are excluded from the challenge"
 
 ---
 

@@ -75,7 +75,7 @@ Clears `#app`, calls the corresponding `render*()` function, applies a fade-in a
       "emoji": "string",
       "createdAt": 1234567890,
       "settings": {
-        "difficulty": "off|easy|hard|extreme",
+        "difficulty": "off|easy|hard|extreme",  // default: "easy" for new users
         "mode": "fixed_count|fixed_time|extensive|double_extensive",
         "boostDifficult": false,
         "disabledTables": [3, 7]
