@@ -1535,7 +1535,7 @@ function renderHome(){
       el('div',{class:'user-name'},[user.name]),
       el('div',{class:'user-score'},[topScore>0?`${topScore} ${t('pts')}`:t('noHighscores20')]),
       el('div',{class:'user-stars'},[detailStr]),
-      el('div',{style:'font-size:0.72rem;color:var(--c-text-dim);margin-top:2px'},[t('difficulty')+' '+t(user.settings.difficulty+'Short')])
+      el('div',{style:'font-size:0.72rem;color:var(--c-text-dim);margin-top:2px'},[t(user.settings.difficulty+'Short')])
     ]);
     const statsBtn=el('button',{
       class:'btn-stats',
