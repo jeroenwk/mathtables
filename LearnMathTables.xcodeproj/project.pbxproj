@@ -17,7 +17,7 @@
 
 /* Begin PBXFileReference section */
 		0715B2D52F4C5E0D00EB3E15 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
-		A2000000 /* MathTables.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MathTables.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2000000 /* LearnMathTables.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnMathTables.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A2000003 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 		A4000002 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A2000000 /* MathTables.app */,
+				A2000000 /* LearnMathTables.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,9 +70,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A5000000 /* MathTables */ = {
+		A5000000 /* LearnMathTables */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A7000002 /* Build configuration list for PBXNativeTarget "MathTables" */;
+			buildConfigurationList = A7000002 /* Build configuration list for PBXNativeTarget "LearnMathTables" */;
 			buildPhases = (
 				A3000000 /* Sources */,
 				A3000001 /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = MathTables;
+			name = LearnMathTables;
 			productName = MathTables;
-			productReference = A2000000 /* MathTables.app */;
+			productReference = A2000000 /* LearnMathTables.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -102,7 +102,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A7000000 /* Build configuration list for PBXProject "MathTables" */;
+			buildConfigurationList = A7000000 /* Build configuration list for PBXProject "LearnMathTables" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -115,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A5000000 /* MathTables */,
+				A5000000 /* LearnMathTables */,
 			);
 		};
 /* End PBXProject section */
@@ -330,7 +330,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A7000000 /* Build configuration list for PBXProject "MathTables" */ = {
+		A7000000 /* Build configuration list for PBXProject "LearnMathTables" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A7000001 /* Debug */,
@@ -339,7 +339,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A7000002 /* Build configuration list for PBXNativeTarget "MathTables" */ = {
+		A7000002 /* Build configuration list for PBXNativeTarget "LearnMathTables" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A7000003 /* Debug */,
