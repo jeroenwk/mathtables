@@ -1821,7 +1821,7 @@ function renderResult(){
   scoreBox.appendChild(scoreNum);
   scoreBox.appendChild(el('div',{class:'result-score-label'},[t('pts')]));
   wrap.appendChild(scoreBox);
-  if(hs) wrap.appendChild(el('div',{style:'text-align:center;font-size:0.78rem;color:var(--c-text-dim);margin-top:4px'},[t(hs.difficulty+'Short')+' · '+t(hs.mode)]));
+  if(hs) wrap.appendChild(el('div',{style:'text-align:center;font-size:0.78rem;color:var(--c-text-dim);margin-top:4px'},[t(hs.difficulty+'Short')]));
 
   // Stats row
   wrap.appendChild(el('div',{class:'result-stats'},[
