@@ -668,6 +668,7 @@ const I18N = {
     create:'Créer',
     difficulty:'Niveau',
     off:'Sans limite de temps',easy:'Facile (10s)',hard:'Difficile (6s)',extreme:'Extrême (3s)',
+    offShort:'Libre',easyShort:'Facile',hardShort:'Difficile',extremeShort:'Extrême',
     mode:'Mode',
     fixed_count:'20 questions',fixed_time:'⏱ 2min',extensive:'Tout',double_extensive:'Double',
     difficultyDesc:'Plus le niveau est élevé, plus les points gagnés sont importants.',
@@ -717,6 +718,7 @@ const I18N = {
     create:'Create',
     difficulty:'Level',
     off:'No time limit',easy:'Easy (10s)',hard:'Hard (6s)',extreme:'Extreme (3s)',
+    offShort:'Free',easyShort:'Easy',hardShort:'Hard',extremeShort:'Extreme',
     mode:'Mode',
     fixed_count:'20 questions',fixed_time:'⏱ 2min',extensive:'All',double_extensive:'Double',
     difficultyDesc:'The harder the level, the more points you earn.',
@@ -766,6 +768,7 @@ const I18N = {
     create:'Aanmaken',
     difficulty:'Niveau',
     off:'Geen tijd limiet',easy:'Makkelijk (10s)',hard:'Moeilijk (6s)',extreme:'Extreem (3s)',
+    offShort:'Vrij',easyShort:'Makkelijk',hardShort:'Moeilijk',extremeShort:'Extreem',
     mode:'Modus',
     fixed_count:'20 vragen',fixed_time:'⏱ 2min',extensive:'Alles',double_extensive:'Dubbel',
     difficultyDesc:'Hoe moeilijker het niveau, hoe meer punten je verdient.',
@@ -1532,7 +1535,7 @@ function renderHome(){
       el('div',{class:'user-name'},[user.name]),
       el('div',{class:'user-score'},[topScore>0?`${topScore} ${t('pts')}`:t('noHighscores20')]),
       el('div',{class:'user-stars'},[detailStr]),
-      el('div',{style:'font-size:0.72rem;color:var(--c-text-dim);margin-top:2px'},[t(user.settings.difficulty)])
+      el('div',{style:'font-size:0.72rem;color:var(--c-text-dim);margin-top:2px'},[t('difficulty')+' '+t(user.settings.difficulty+'Short')])
     ]);
     const statsBtn=el('button',{
       class:'btn-stats',
