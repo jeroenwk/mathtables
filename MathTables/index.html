@@ -1182,12 +1182,13 @@ const Game = {
     if(isCorrect){
       this.numpadLocked=true;
       const mult=this._multiplierFor(q.a,q.b);
-      const qScore=this.secondChance?0:this.computeQuestionScore(timeTaken,mult);
+      const diffBonus=DIFFICULTY_BONUS[this.difficulty]||1.0;
+      const qScore=this.secondChance?Math.round(100*mult*diffBonus):this.computeQuestionScore(timeTaken,mult);
       this.score+=qScore;
       this.streak=this.secondChance?0:this.streak+1;
       Store.saveAnswer(this.user.id,q.a,q.b,true,this.secondChance,timeTaken);
       this.answers.push({a:q.a,b:q.b,correct:true,secondChance:this.secondChance,timeTaken,score:qScore});
-      this._onCorrect(qScore,this.secondChance?1:mult);
+      this._onCorrect(qScore,mult);
     } else {
       if(!this.secondChance){
         this.secondChance=true;
