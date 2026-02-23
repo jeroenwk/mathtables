@@ -1893,8 +1893,26 @@ function renderStats({userId}){
   header.appendChild(el('div',{class:'home-title'},['🧮 Math Tables']));
   wrap.appendChild(header);
 
+  // Highscores
+  if(user.highscores.length>0){
+    wrap.appendChild(el('div',{class:'section-label'},['🏆 Top scores']));
+    const hsCard=el('div',{class:'card card-sm'});
+    user.highscores.slice(0,5).forEach((hs,i)=>{
+      const row=el('div',{
+        class:'stats-duration-item'+(i===0?' hs-row-best':''),
+        style:'margin-bottom:6px'
+      },[
+        el('span',{style:'font-size:1.1rem'},[String(hs.score)+' '+t('pts')]),
+        el('span',{style:'color:var(--c-text-dim);font-size:0.8rem'},[`${t(hs.difficulty)} / ${t(hs.mode)}`]),
+        el('span',{class:'duration-val'},[pctCorrect(hs)])
+      ]);
+      hsCard.appendChild(row);
+    });
+    wrap.appendChild(hsCard);
+  }
+
   // Top 10 hard
-  wrap.appendChild(el('div',{class:'section-label'},[t('hardestQs')]));
+  wrap.appendChild(el('div',{class:'section-label',style:'margin-top:12px'},[t('hardestQs')]));
   const top10=Store.getTop10Hard(userId);
   if(top10.length===0){
     wrap.appendChild(el('div',{class:'card',style:'text-align:center;color:var(--c-text-dim)'},[t('noData')]));
@@ -1942,24 +1960,6 @@ function renderStats({userId}){
     });
     durCard.appendChild(durList);
     wrap.appendChild(durCard);
-  }
-
-  // Highscores
-  if(user.highscores.length>0){
-    wrap.appendChild(el('div',{class:'section-label',style:'margin-top:12px'},['🏆 Top scores']));
-    const hsCard=el('div',{class:'card card-sm'});
-    user.highscores.slice(0,5).forEach((hs,i)=>{
-      const row=el('div',{
-        class:'stats-duration-item'+(i===0?' hs-row-best':''),
-        style:'margin-bottom:6px'
-      },[
-        el('span',{style:'font-size:1.1rem'},[String(hs.score)+' '+t('pts')]),
-        el('span',{style:'color:var(--c-text-dim);font-size:0.8rem'},[`${t(hs.difficulty)} / ${t(hs.mode)}`]),
-        el('span',{class:'duration-val'},[pctCorrect(hs)])
-      ]);
-      hsCard.appendChild(row);
-    });
-    wrap.appendChild(hsCard);
   }
 
   // Delete account
