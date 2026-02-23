@@ -2,7 +2,7 @@
 
 A multiplication tables learning game for children. Supports multiple player profiles, adaptive difficulty, and detailed statistics.
 
-**▶ [Play online](https://jeroenwk.github.io/mathtables/)**
+**▶ [Play online](https://jeroenwk.github.io/mathtables/MathTables/index.html)**
 
 ## Screenshots
 
