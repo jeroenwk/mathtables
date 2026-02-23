@@ -661,6 +661,7 @@ const I18N = {
     mode:'Mode',
     fixed_count:'20 questions',fixed_time:'⏱ 2min',extensive:'Tout',double_extensive:'Double',
     boostHard:'Renforcer les difficiles',
+    boostHardDesc:'Tes 10 questions les plus dures apparaissent plus souvent',
     tables:'Tables',
     startGame:'Jouer !',
     score:'Score',
@@ -699,6 +700,7 @@ const I18N = {
     mode:'Mode',
     fixed_count:'20 questions',fixed_time:'⏱ 2min',extensive:'All',double_extensive:'Double',
     boostHard:'Boost hard questions',
+    boostHardDesc:'Your 10 hardest questions appear more often',
     tables:'Tables',
     startGame:'Play !',
     score:'Score',
@@ -737,6 +739,7 @@ const I18N = {
     mode:'Modus',
     fixed_count:'20 vragen',fixed_time:'⏱ 2min',extensive:'Alles',double_extensive:'Dubbel',
     boostHard:'Moeilijke vragen versterken',
+    boostHardDesc:'Je 10 moeilijkste vragen komen vaker voor',
     tables:'Tafels',
     startGame:'Spelen !',
     score:'Score',
@@ -1600,7 +1603,8 @@ function renderSettings({userId}){
     el('span',{class:'toggle-label'},[t('boostHard')]),
     boostToggle
   ]);
-  wrap.appendChild(el('div',{class:'card card-sm',style:'margin-top:12px'},[boostRow]));
+  const boostDesc=el('div',{style:'font-size:0.75rem;color:var(--c-text-dim);margin-top:4px'},[t('boostHardDesc')]);
+  wrap.appendChild(el('div',{class:'card card-sm',style:'margin-top:12px'},[boostRow,boostDesc]));
 
   // ---- Tables ----
   wrap.appendChild(el('div',{class:'section-label',style:'margin-top:12px'},[t('tables')]));
