@@ -1672,6 +1672,15 @@ function renderSettings({userId}){
   refreshMode();
   wrap.appendChild(modeGroup);
   wrap.appendChild(modeDesc);
+  wrap.appendChild(el('button',{
+    class:'btn-start',
+    style:'margin-top:12px',
+    onClick:()=>{
+      user.settings={...s};
+      Store.save();
+      Game.start(userId);
+    }
+  },['▶ '+t('startGame')]));
 
   // ---- Boost difficult ----
   const boostToggle=el('button',{
@@ -1713,17 +1722,6 @@ function renderSettings({userId}){
   refreshTables();
   wrap.appendChild(tableGrid);
   wrap.appendChild(tableDesc);
-
-  // ---- Start ----
-  wrap.appendChild(el('button',{
-    class:'btn-start',
-    style:'margin-top:16px',
-    onClick:()=>{
-      user.settings={...s};
-      Store.save();
-      Game.start(userId);
-    }
-  },['▶ '+t('startGame')]));
 
   document.getElementById('app').appendChild(wrap);
 }
