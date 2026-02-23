@@ -1023,46 +1023,67 @@ const Game = {
     const s=user.settings;
     const max=MAX_TABLE[s.difficulty]||10;
     const disabled=new Set(s.disabledTables||[]);
-    let pool=[];
+
+    // Build unique pairs where at least one side is an enabled table.
+    // Store in canonical a<=b form to avoid duplicate pairs.
+    const uniquePairs=[];
     for(let a=1;a<=max;a++){
-      for(let b=1;b<=max;b++){
-        if(disabled.has(a)||disabled.has(b)) continue;
-        pool.push({a,b});
+      for(let b=a;b<=max;b++){
+        if(disabled.has(a)&&disabled.has(b)) continue;
+        uniquePairs.push({a,b});
       }
     }
-    // Boost difficult questions
+
+    // Boost difficult questions (applied to fixed_count/fixed_time only)
+    let boostExtra=[];
     if(s.boostDifficult){
       const top=Store.getTop10Hard(user.id);
       top.forEach(item=>{
         const [x,y]=item.key.split('x').map(Number);
-        if(x<=max&&y<=max&&!disabled.has(x)&&!disabled.has(y)){
-          for(let i=0;i<3;i++) pool.push({a:x,b:y});
+        if(x<=max&&y<=max&&!(disabled.has(x)&&disabled.has(y))){
+          for(let i=0;i<3;i++) boostExtra.push({a:x,b:y});
         }
       });
     }
-    // Shuffle
-    for(let i=pool.length-1;i>0;i--){
+
+    // Shuffle uniquePairs
+    for(let i=uniquePairs.length-1;i>0;i--){
       const j=Math.floor(Math.random()*(i+1));
-      [pool[i],pool[j]]=[pool[j],pool[i]];
+      [uniquePairs[i],uniquePairs[j]]=[uniquePairs[j],uniquePairs[i]];
     }
+
     const mode=s.mode;
+
     if(mode==='fixed_count'){
-      return pool.slice(0,FIXED_COUNT);
-    } else if(mode==='fixed_time'){
-      // repeat pool as needed
-      let extended=[];
-      while(extended.length<200) extended=[...extended,...pool];
-      return extended.slice(0,200);
-    } else if(mode==='extensive'){
-      return pool;
-    } else { // double_extensive
-      const reversed=pool.map(q=>({a:q.b,b:q.a}));
-      // shuffle reversed separately
-      for(let i=reversed.length-1;i>0;i--){
+      const pool=[...uniquePairs.map(q=>Math.random()<0.5?{a:q.a,b:q.b}:{a:q.b,b:q.a}),...boostExtra];
+      for(let i=pool.length-1;i>0;i--){
         const j=Math.floor(Math.random()*(i+1));
-        [reversed[i],reversed[j]]=[reversed[j],reversed[i]];
+        [pool[i],pool[j]]=[pool[j],pool[i]];
       }
-      return [...pool,...reversed];
+      return pool.slice(0,FIXED_COUNT);
+
+    } else if(mode==='fixed_time'){
+      const base=uniquePairs.map(q=>Math.random()<0.5?{a:q.a,b:q.b}:{a:q.b,b:q.a});
+      let extended=[];
+      while(extended.length<200) extended=[...extended,...base];
+      return extended.slice(0,200);
+
+    } else if(mode==='extensive'){
+      // All unique pairs, each randomly flipped
+      return uniquePairs.map(q=>Math.random()<0.5?{a:q.a,b:q.b}:{a:q.b,b:q.a});
+
+    } else { // double_extensive
+      // Both orderings of each pair; symmetric pairs (a===b) appear once
+      const pool=[];
+      for(const q of uniquePairs){
+        pool.push({a:q.a,b:q.b});
+        if(q.a!==q.b) pool.push({a:q.b,b:q.a});
+      }
+      for(let i=pool.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [pool[i],pool[j]]=[pool[j],pool[i]];
+      }
+      return pool;
     }
   },
 

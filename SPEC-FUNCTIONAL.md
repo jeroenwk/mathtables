@@ -34,11 +34,11 @@ Harder difficulty levels apply a multiplier to every point scored.
 |------------------|-------------|
 | 20 questions     | A fixed set of 20 randomly chosen questions |
 | 2 minutes        | As many questions as possible in 2 minutes |
-| All              | Every combination from the selected tables, once |
-| Double           | Every combination, then again with factors reversed |
+| All              | Each unique pair from the selected tables once (e.g. 5×6 and 6×5 count as one question, shown in a random order) |
+| Double           | Each unique pair in both orderings (5×6 and 6×5 as separate questions); symmetric pairs like 6×6 appear once |
 
 ### Boost Hard Questions
-When enabled, the player's personal top-10 hardest questions (most errors, slowest responses) are added 3 extra times to the question pool, making them appear more frequently.
+When enabled, the player's personal top-10 hardest questions (most errors, slowest responses) are added 3 extra times to the question pool, making them appear more frequently. This applies to the **20 questions** and **2 minutes** modes; the **All** and **Double** modes are not boosted (each question already appears a fixed number of times).
 
 ### Tables
 Each table (1 through 10) can be individually enabled or disabled. Disabled tables are excluded from all questions.

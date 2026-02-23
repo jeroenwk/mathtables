@@ -119,14 +119,21 @@ Answer keys are always stored in `min×max` order (e.g. `6x8`, never `8x6`) to d
 
 ### Question pool generation (`Game.buildPool`)
 
-1. Generate all `a×b` pairs where `1 ≤ a,b ≤ MAX_TABLE[difficulty]` (currently 10 for all levels), excluding disabled tables.
-2. If `boostDifficult` is enabled, fetch the player's top-10 hardest questions (`Store.getTop10Hard`) and add each 3 extra times — but only if both factors are within the current `MAX_TABLE` limit.
-3. Fisher-Yates shuffle.
-4. Slice/repeat according to mode:
-   - `fixed_count`: first 20 questions
-   - `fixed_time`: repeat pool up to 200 questions
-   - `extensive`: full pool
-   - `double_extensive`: full pool + shuffled reversed pairs
+1. Generate all **unique pairs** `{a, b}` where `a ≤ b`, `1 ≤ a,b ≤ MAX_TABLE[difficulty]` (currently 10 for all levels), keeping only pairs where at least one factor is an enabled table (i.e. skip pairs where both `a` and `b` are disabled). This canonical form avoids counting `5×6` and `6×5` as separate entries.
+2. Fisher-Yates shuffle of the unique pairs.
+3. Build the final pool according to mode:
+   - `fixed_count`: randomly flip each pair's sides (50/50), append boost extras (see below), re-shuffle, take first 20.
+   - `fixed_time`: randomly flip each pair's sides, repeat until ≥ 200 entries, take first 200.
+   - `extensive`: randomly flip each pair's sides — yields one question per unique pair.
+   - `double_extensive`: expand each pair into both orderings (`a×b` and `b×a`); symmetric pairs (`a = b`) appear once. Re-shuffle the full list.
+4. **Boost** (`boostDifficult`): fetch the player's top-10 hardest questions (`Store.getTop10Hard`) and, for each that is within `MAX_TABLE` and not fully disabled, append 3 extra copies. Applied only to `fixed_count` (before final slice); `extensive` and `double_extensive` modes are not boosted.
+
+**Question counts with all tables enabled:**
+
+| Mode | Count |
+|------|-------|
+| `extensive` | 55 (triangular: 10×11/2) |
+| `double_extensive` | 100 (10×10) |
 
 ### Scoring (`Game.computeQuestionScore`)
 
