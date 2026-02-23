@@ -10,7 +10,7 @@ Math Tables is a multiplication practice game for children. Multiple players can
 
 - Any number of player profiles can be created on the same device.
 - Each profile has a **name**, an **emoji avatar**, and its own settings and score history.
-- Profiles are listed on the home screen, sorted by their best score (highest first).
+- Profiles are listed on the home screen under a **"20 question challenge" ranking**, sorted by their best `fixed_count` (20 questions) score. Each card shows the player's best score, total time, and correct/total count for that mode. Players with no 20-question game yet appear at the bottom.
 - A profile can be deleted from the stats screen (deletes all associated data).
 
 ---
@@ -120,9 +120,9 @@ score = round( (base × hardMultiplier) × difficultyBonus )
 After each game, the player sees:
 - Total score
 - Breakdown: correct (first attempt) / second chance / wrong
-- Whether a new personal best was achieved (confetti + sound)
+- Whether a new personal best **for that game mode** was achieved (confetti + sound)
 
-The top 10 scores per player are stored. Scores are ranked globally across all modes and difficulty levels.
+The top 10 scores per player are stored (across all modes). A "new best" is detected by comparing the score only against previous scores in the same mode.
 
 ---
 

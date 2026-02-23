@@ -125,6 +125,7 @@ body{
   white-space:nowrap;
 }
 .btn-play-user:active{transform:scale(0.93);opacity:0.9}
+.user-rank{font-size:1.3rem;line-height:1;flex-shrink:0;min-width:1.6rem;text-align:center;color:var(--c-text-dim)}
 .user-avatar{font-size:2rem;line-height:1;flex-shrink:0}
 .user-info{flex:1;min-width:0}
 .user-name{font-size:1rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -688,6 +689,8 @@ const I18N = {
     back:'←',
     stats:'ℹ',
     noHighscores:'Pas encore de score',
+    noHighscores20:'Pas encore de score en mode 20 questions',
+    ranking20Title:'🏅 Classement — défi 20 questions',
   },
   en:{
     title:'Tables',
@@ -727,6 +730,8 @@ const I18N = {
     back:'←',
     stats:'ℹ',
     noHighscores:'No score yet',
+    noHighscores20:'No score yet for 20 question mode',
+    ranking20Title:'🏅 Ranking — 20 question challenge',
   },
   nl:{
     title:'Tafels',
@@ -766,6 +771,8 @@ const I18N = {
     back:'←',
     stats:'ℹ',
     noHighscores:'Nog geen score',
+    noHighscores20:'Nog geen score voor 20 vragen modus',
+    ranking20Title:'🏅 Klassement — 20 vragen uitdaging',
   }
 };
 function t(key){
@@ -840,7 +847,9 @@ const Store = {
     u.highscores.push(hs);
     u.highscores.sort((a,b)=>b.score-a.score);
     if(u.highscores.length>10) u.highscores.length=10;
-    const isNew = u.highscores[0].id===hs.id && hs.score>0;
+    const prevBest=u.highscores.filter(h=>h.id!==hs.id&&h.mode===hs.mode)
+                               .reduce((max,h)=>Math.max(max,h.score),0);
+    const isNew=hs.score>0&&hs.score>prevBest;
     this.save();
     return isNew;
   },
@@ -1469,23 +1478,27 @@ function renderHome(){
   wrap.appendChild(header);
 
   // User list
+  wrap.appendChild(el('div',{class:'section-label'},[t('ranking20Title')]));
   if(users.length===0){
     wrap.appendChild(el('div',{style:'text-align:center;color:var(--c-text-dim);padding:40px 0;font-size:2rem'},['👋']));
   }
   users.sort((a,b)=>{
-    const sa=a.highscores[0]?.score||0;const sb=b.highscores[0]?.score||0;
+    const sa=a.highscores.find(h=>h.mode==='fixed_count')?.score||0;
+    const sb=b.highscores.find(h=>h.mode==='fixed_count')?.score||0;
     return sb-sa;
-  }).forEach(user=>{
-    const topScore=user.highscores[0]?.score||0;
-    const topHS=user.highscores[0];
-    const starStr=topHS?pctCorrect(topHS):'';
+  }).forEach((user,i)=>{
+    const topHS=user.highscores.find(h=>h.mode==='fixed_count');
+    const topScore=topHS?.score||0;
+    const detailStr=topHS?`${formatMs(topHS.duration)}  ·  ${(topHS.correctFirst||0)+(topHS.correctSecond||0)}/${topHS.totalQuestions||0}`:'';
+    const rankBadge=['🏆','🥈','🥉'][i]||(i+1);
 
     const card=el('div',{class:'user-card'});
+    const rank=el('div',{class:'user-rank'},[typeof rankBadge==='number'?String(rankBadge):rankBadge]);
     const avatar=el('div',{class:'user-avatar'},[user.emoji]);
     const info=el('div',{class:'user-info'},[
       el('div',{class:'user-name'},[user.name]),
-      el('div',{class:'user-score'},[topScore>0?`${topScore} ${t('pts')}`:t('noHighscores')]),
-      el('div',{class:'user-stars'},[starStr])
+      el('div',{class:'user-score'},[topScore>0?`${topScore} ${t('pts')}`:t('noHighscores20')]),
+      el('div',{class:'user-stars'},[detailStr])
     ]);
     const statsBtn=el('button',{
       class:'btn-stats',
@@ -1497,6 +1510,7 @@ function renderHome(){
       onClick:()=>App.go('SETTINGS',{userId:user.id})
     },['▶ '+t('startGame')]);
 
+    card.appendChild(rank);
     card.appendChild(avatar);
     card.appendChild(info);
     card.appendChild(el('div',{class:'user-actions'},[playBtn,statsBtn]));

@@ -172,7 +172,7 @@ On timed difficulty, each question starts a `rAF` loop that updates the timer ba
 
 ### Highscore logic
 
-Top 10 scores per user, sorted by score descending. A new high score is detected when the just-added entry lands at index 0.
+Top 10 scores per user, sorted by score descending (across all modes). `Store.addHighscore()` returns `isNew = true` when the new score exceeds the previous best score **for the same mode** (per-mode comparison, not global).
 
 ---
 
