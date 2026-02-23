@@ -2,6 +2,15 @@
 
 A multiplication tables learning game for children. Supports multiple player profiles, adaptive difficulty, and detailed statistics.
 
+## Screenshots
+
+<p float="left">
+  <img src="screenshots/home_screen.png" width="22%" />
+  <img src="screenshots/game_settings.png" width="22%" />
+  <img src="screenshots/in_game.png" width="22%" />
+  <img src="screenshots/statistics.png" width="22%" />
+</p>
+
 ## Features
 
 - Multiple player profiles with emoji avatars
