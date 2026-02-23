@@ -1682,18 +1682,6 @@ function renderSettings({userId}){
     }
   },['▶ '+t('startGame')]));
 
-  // ---- Boost difficult ----
-  const boostToggle=el('button',{
-    class:'toggle-switch'+(s.boostDifficult?' on':''),
-    onClick:function(){s.boostDifficult=!s.boostDifficult;this.className='toggle-switch'+(s.boostDifficult?' on':'');}
-  });
-  const boostRow=el('div',{class:'toggle-row'},[
-    el('span',{class:'toggle-label'},[t('boostHard')]),
-    boostToggle
-  ]);
-  const boostDesc=el('div',{style:'font-size:0.75rem;color:var(--c-text-dim);margin-top:4px'},[t('boostHardDesc')]);
-  wrap.appendChild(el('div',{class:'card card-sm',style:'margin-top:12px'},[boostRow,boostDesc]));
-
   // ---- Tables ----
   wrap.appendChild(el('div',{class:'section-label',style:'margin-top:12px'},[t('tables')]));
   const tableGrid=el('div',{class:'table-grid'});
@@ -1722,6 +1710,18 @@ function renderSettings({userId}){
   refreshTables();
   wrap.appendChild(tableGrid);
   wrap.appendChild(tableDesc);
+
+  // ---- Boost difficult ----
+  const boostToggle=el('button',{
+    class:'toggle-switch'+(s.boostDifficult?' on':''),
+    onClick:function(){s.boostDifficult=!s.boostDifficult;this.className='toggle-switch'+(s.boostDifficult?' on':'');}
+  });
+  const boostRow=el('div',{class:'toggle-row'},[
+    el('span',{class:'toggle-label'},[t('boostHard')]),
+    boostToggle
+  ]);
+  const boostDesc=el('div',{style:'font-size:0.75rem;color:var(--c-text-dim);margin-top:4px'},[t('boostHardDesc')]);
+  wrap.appendChild(el('div',{class:'card card-sm',style:'margin-top:12px'},[boostRow,boostDesc]));
 
   document.getElementById('app').appendChild(wrap);
 }
