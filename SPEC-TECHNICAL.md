@@ -222,6 +222,6 @@ The Xcode project wraps the HTML file in a native iOS app using `WKWebView`:
 | `STORAGE_KEY` | `mathtables_v1` | localStorage key |
 | `FIXED_COUNT` | 20 | Questions in fixed-count mode |
 | `FIXED_TIME_MS` | 120 000 ms | Duration of timed mode (2 min) |
-| `TIME_LIMITS` | off: null, easy: 15s, hard: 10s, extreme: 5s | Per-question time limits |
+| `TIME_LIMITS` | off: null, easy: 10s, hard: 6s, extreme: 3s | Per-question time limits |
 | `DIFFICULTY_BONUS` | off/easy: 1.0, hard: 1.3, extreme: 1.7 | Score multipliers |
 | `MAX_TABLE` | 10 for all levels | Highest table included in questions |

@@ -16,7 +16,7 @@ A multiplication tables learning game for children. Supports multiple player pro
 ## Features
 
 - Multiple player profiles with emoji avatars
-- Four difficulty levels (no limit / 15s / 10s / 5s) with score bonuses for harder levels
+- Four difficulty levels (no limit / 10s / 6s / 3s) with score bonuses for harder levels
 - Four game modes: 20 questions, 2-minute sprint, all tables, double (reversed)
 - Score boosted by speed, answer streaks, and hard question multipliers (×2 or ×4 for factors 6–9)
 - Boost mode: surfaces your personal hardest questions more often

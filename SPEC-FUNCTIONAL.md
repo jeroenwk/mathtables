@@ -23,9 +23,9 @@ Before starting a game, each player configures:
 | Level   | Time limit | Score bonus |
 |---------|-----------|-------------|
 | Off     | None      | ×1.0        |
-| Easy    | 15 s      | ×1.0        |
-| Hard    | 10 s      | ×1.3        |
-| Extreme | 5 s       | ×1.7        |
+| Easy    | 10 s      | ×1.0        |
+| Hard    | 6 s       | ×1.3        |
+| Extreme | 3 s       | ×1.7        |
 
 Harder difficulty levels apply a multiplier to every point scored.
 
@@ -103,7 +103,7 @@ After applying the hard multiplier, a difficulty bonus is applied:
 score = round( (base × hardMultiplier) × difficultyBonus )
 ```
 
-**Example** — answering 7×8 in 1 second on Extreme (5s limit):
+**Example** — answering 7×8 in 1 second on Extreme (3s limit):
 - base ≈ 100 + 200 + streak
 - × 4 (both factors hard)
 - × 1.7 (Extreme bonus)
